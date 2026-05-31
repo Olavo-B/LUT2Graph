@@ -1,0 +1,47 @@
+============================================================
+  Graph Statistics Report  —  paviaU
+============================================================
+
+[ Basic Structure ]
+  Nodes            :      2,674
+  Edges            :      4,646
+  Density          :   0.000650
+  Avg Degree       :     3.4749
+  Avg In-Degree    :     1.7375
+  Avg Out-Degree   :     1.7375
+  Max In-Degree    :          6
+  Max Out-Degree   :         27
+
+  Node type breakdown:
+            $lut : 1,022
+           input : 1,648
+          output : 4
+
+  Per-type degree averages:
+            $lut  in=4.54  out=3.37
+           input  in=0.00  out=0.73
+          output  in=1.00  out=0.00
+
+[ Connectivity ]
+  Is DAG                         : True
+  Weakly Connected Components    :        732
+  Strongly Connected Components  :      2,674
+  Largest WCC Size               :      1,943
+  Top-5 Component Sizes          : [1943, 1, 1, 1, 1]
+
+[ Clustering & Path Length ]
+  Global Clustering Coefficient  :   0.003662
+  Avg Neighbourhood Overlap      :   0.002798
+  Avg Path Length (LCC)          :     6.3909
+
+[ Boolean Bias  (LUT nodes) ]
+  Mean : 0.3228
+  Std  : 0.1907
+  Min  : 0.0156
+  Max  : 0.9375
+
+[ Boolean Sensitivity  (edge weights) ]
+  Mean : 0.3107
+  Std  : 0.2505
+  Min  : 0.0312
+  Max  : 1.0000
