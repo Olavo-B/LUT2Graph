@@ -173,6 +173,30 @@ class LUTGraphBuilder:
     # Private helpers
     # ------------------------------------------------------------------
 
+    @staticmethod
+    def _build_output_bit_map(ports: dict) -> dict[Any, str]:
+        """Map each output-port bit to its node identifier in the graph.
+
+        Output port nodes are named ``'<port_name>_<bit>'`` to avoid
+        collisions with internal signal identifiers.
+
+        Parameters
+        ----------
+        ports:
+            ``ports`` sub-dict from the Yosys JSON module.
+
+        Returns
+        -------
+        dict
+            ``{bit_id: node_name}`` for every output-direction bit.
+        """
+        mapping: dict[Any, str] = {}
+        for port_name, port_data in ports.items():
+            if port_data.get("direction") == "output":
+                for bit in port_data.get("bits", []):
+                    mapping[bit] = f"{port_name}_{bit}"
+        return mapping
+
     def _load_json(self) -> dict:
         """Load and return the Yosys JSON file as a Python dict.
 
@@ -268,30 +292,6 @@ class LUTGraphBuilder:
                 bias=bias,
                 color="green",
             )
-
-    @staticmethod
-    def _build_output_bit_map(ports: dict) -> dict[Any, str]:
-        """Map each output-port bit to its node identifier in the graph.
-
-        Output port nodes are named ``'<port_name>_<bit>'`` to avoid
-        collisions with internal signal identifiers.
-
-        Parameters
-        ----------
-        ports:
-            ``ports`` sub-dict from the Yosys JSON module.
-
-        Returns
-        -------
-        dict
-            ``{bit_id: node_name}`` for every output-direction bit.
-        """
-        mapping: dict[Any, str] = {}
-        for port_name, port_data in ports.items():
-            if port_data.get("direction") == "output":
-                for bit in port_data.get("bits", []):
-                    mapping[bit] = f"{port_name}_{bit}"
-        return mapping
 
     def _create_edges(
         self,
