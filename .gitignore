@@ -4,6 +4,7 @@
 # All files with rato and temp in name (rato is a temporary or auxiliary file file)
 *rato*
 *temp*
+**/data/**
 
 
 
