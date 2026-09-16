@@ -46,6 +46,26 @@ class LUTGraphBuilder:
         self._register_lut_nodes(G, cells)
         output_bit_map = self._build_output_bit_map(ports)
         self._create_edges(G, cells, output_bit_map)
+        
+        # --- TOPOLOGICAL DEPTH & VISUALS (NOVO BLOCO) ---
+        # 1. Initialize default visual attributes for all nodes
+        for n in G.nodes():
+            G.nodes[n]['logic_depth'] = 0
+            G.nodes[n]['status'] = 'Active'
+            # Native Gephi Color Support (Default: Dark Gray)
+            G.nodes[n]['viz'] = {'color': {'r': 169, 'g': 169, 'b': 169, 'a': 1.0}}
+
+        # 2. Calculate Topological Depth (Levels)
+        # This preserves the structural hierarchy even after edges are pruned later
+        try:
+            topo_order = list(nx.topological_sort(G))
+            for n in topo_order:
+                preds = list(G.predecessors(n))
+                if preds:
+                    G.nodes[n]['logic_depth'] = max([G.nodes[p].get('logic_depth', 0) for p in preds]) + 1
+        except nx.NetworkXUnfeasible:
+            # Silently pass if graph has cycles (rare in mapped LUTs)
+            pass
 
         self._graph = G
         return G

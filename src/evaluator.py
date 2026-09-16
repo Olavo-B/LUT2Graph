@@ -12,12 +12,13 @@ import networkx as nx
 import math
 
 class CircuitSimulator:
-    def __init__(self, G, reverse_bits=True):
+    def __init__(self, G,name = None,  reverse_bits=True):
         """
         Initializes the topological simulator.
         reverse_bits: Handles Endianness (MSB/LSB) alignment with Verilog datasets.
         """
         self.G = G
+        self.name = name
         self.reverse_bits = reverse_bits
 
     def _evaluate_lut(self, node, node_data, input_values):
@@ -78,12 +79,31 @@ class CircuitSimulator:
         # Topological sort ensures we evaluate inputs before outputs
         eval_order = list(nx.topological_sort(self.G))
 
+        def extract_id(port_name):
+            try:
+                return int(str(port_name).split('_')[-1])
+            except ValueError:
+                return 0
+
+        # Get and sort input nodes by their ID to ensure proper bit significance (LSB to MSB)
+        in_nodes = [n for n, d in self.G.nodes(data=True) if d.get('type') == 'input']
+        in_nodes.sort(key=extract_id)
+        
+        with open(f"evaluation_states_{self.name}.csv", "w") as f:
+            f.write("test_vector_index,node_type,evaluated_state\n")
+
         for i, test_vector in enumerate(test_dataset):
             node_states = {}
             
             # Load initial inputs
-            for k, v in test_vector.items():
-                node_states[k] = v
+            if isinstance(test_vector, int):
+                # Unpack the integer bit by bit to the sorted input ports
+                for bit_idx, in_node in enumerate(in_nodes):
+                    node_states[in_node] = (test_vector >> bit_idx) & 1
+            else:
+                # Fallback if test_vector is already a dictionary
+                for k, v in test_vector.items():
+                    node_states[k] = v
                 
             # Propagate logic through the graph
             for node in eval_order:
@@ -102,17 +122,15 @@ class CircuitSimulator:
                     if in_edges:
                         driver = in_edges[0][0]
                         node_states[node] = node_states.get(driver, 0)
+                        
+                        
+                # Save the evaluated state for debugging in an .csv file
+                if i == 0:  # Only write for one sample
+                    with open(f"evaluation_states_{self.name}.csv", "a") as f:
+                        f.write(f"{i},{n_type},{node_states.get(node, 0)}\n")
 
             # Check matching output logic (handling multi-bit output buses)
             out_nodes = [n for n, d in self.G.nodes(data=True) if d.get('type') == 'output']
-            
-            # Sort output nodes by their ID to ensure proper bit significance (LSB to MSB)
-            def extract_id(port_name):
-                try:
-                    return int(str(port_name).split('_')[-1])
-                except ValueError:
-                    return 0
-                    
             out_nodes.sort(key=extract_id)
 
             if out_nodes and expected_labels:
