@@ -143,6 +143,20 @@ def compute_weight_stats(G: nx.DiGraph) -> dict[str, Any]:
         "std_weight": float(np.std(weights)), "min_weight": float(np.min(weights)),
         "max_weight": float(np.max(weights)),
     }
+    
+def compute_critical_path(G: nx.DiGraph) -> dict[str, Any]:
+    if not nx.is_directed_acyclic_graph(G):
+        warnings.warn("Graph is not a DAG; critical path computation may be invalid.")
+        return {"critical_path_length": float("nan"), "critical_path": []}
+
+    try:
+        longest_path = nx.dag_longest_path(G, weight="weight")
+        longest_length = nx.dag_longest_path_length(G, weight="weight")
+    except Exception as e:
+        warnings.warn(f"Error computing critical path: {e}")
+        return {"critical_path_length": float("nan"), "critical_path": []}
+
+    return {"critical_path_length": longest_length, "critical_path": longest_path}
 
 # ===========================================================================
 # Report printer
@@ -250,3 +264,4 @@ def plot_weight_distribution(weights: dict[str, Any], results_path: Path) -> Non
     ax.set_title("Boolean Sensitivity Distribution")
     plt.savefig(results_path / "weight_distribution.png")
     plt.close(fig)
+    

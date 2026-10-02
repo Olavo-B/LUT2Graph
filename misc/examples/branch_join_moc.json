@@ -1,0 +1,107 @@
+{
+  "creator": "hand-written sanity netlist",
+  "modules": {
+    "branch_join": {
+      "ports": {
+        "x0": {
+          "direction": "input",
+          "bits": [
+            2
+          ]
+        },
+        "x1": {
+          "direction": "input",
+          "bits": [
+            3
+          ]
+        },
+        "x2": {
+          "direction": "input",
+          "bits": [
+            4
+          ]
+        },
+        "y": {
+          "direction": "output",
+          "bits": [
+            10
+          ]
+        }
+      },
+      "cells": {
+        "lut_a": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "0001"
+          },
+          "connections": {
+            "A": [
+              2,
+              3
+            ],
+            "Y": [
+              5
+            ]
+          }
+        },
+        "lut_b1": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "01"
+          },
+          "connections": {
+            "A": [
+              4
+            ],
+            "Y": [
+              6
+            ]
+          }
+        },
+        "lut_b2": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "01"
+          },
+          "connections": {
+            "A": [
+              6
+            ],
+            "Y": [
+              7
+            ]
+          }
+        },
+        "lut_b3": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "01"
+          },
+          "connections": {
+            "A": [
+              7
+            ],
+            "Y": [
+              8
+            ]
+          }
+        },
+        "lut_c": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "0001"
+          },
+          "connections": {
+            "A": [
+              5,
+              8
+            ],
+            "Y": [
+              10
+            ]
+          }
+        }
+      }
+    }
+  }
+}
