@@ -1,0 +1,363 @@
+{
+  "creator": "hand-written medium sanity netlist",
+  "modules": {
+    "medium_mix": {
+      "ports": {
+        "a": {
+          "direction": "input",
+          "bits": [
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        "b": {
+          "direction": "input",
+          "bits": [
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        "k": {
+          "direction": "input",
+          "bits": [
+            10,
+            11,
+            12,
+            13
+          ]
+        },
+        "sel": {
+          "direction": "input",
+          "bits": [
+            14
+          ]
+        },
+        "y": {
+          "direction": "output",
+          "bits": [
+            32,
+            34
+          ]
+        },
+        "v": {
+          "direction": "output",
+          "bits": [
+            33
+          ]
+        },
+        "z": {
+          "direction": "output",
+          "bits": [
+            35
+          ]
+        },
+        "w": {
+          "direction": "output",
+          "bits": [
+            36,
+            37,
+            38
+          ]
+        }
+      },
+      "cells": {
+        "lut_c1": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "1010001000011000"
+          },
+          "connections": {
+            "A": [
+              2,
+              3,
+              6,
+              7
+            ],
+            "Y": [
+              20
+            ]
+          }
+        },
+        "lut_c2": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "1000"
+          },
+          "connections": {
+            "A": [
+              20,
+              4
+            ],
+            "Y": [
+              21
+            ]
+          }
+        },
+        "lut_c3": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "0100"
+          },
+          "connections": {
+            "A": [
+              21,
+              8
+            ],
+            "Y": [
+              22
+            ]
+          }
+        },
+        "lut_c4": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "0011"
+          },
+          "connections": {
+            "A": [
+              22,
+              20
+            ],
+            "Y": [
+              23
+            ]
+          }
+        },
+        "lut_c5": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "0010"
+          },
+          "connections": {
+            "A": [
+              23,
+              5
+            ],
+            "Y": [
+              24
+            ]
+          }
+        },
+        "lut_d1": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "0010"
+          },
+          "connections": {
+            "A": [
+              2,
+              6
+            ],
+            "Y": [
+              25
+            ]
+          }
+        },
+        "lut_e1": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "0001111111000011"
+          },
+          "connections": {
+            "A": [
+              6,
+              7,
+              8,
+              9
+            ],
+            "Y": [
+              26
+            ]
+          }
+        },
+        "lut_p1": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "1110010101100111"
+          },
+          "connections": {
+            "A": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "Y": [
+              27
+            ]
+          }
+        },
+        "lut_p2": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "1100"
+          },
+          "connections": {
+            "A": [
+              27,
+              26
+            ],
+            "Y": [
+              28
+            ]
+          }
+        },
+        "lut_e2": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "1100"
+          },
+          "connections": {
+            "A": [
+              26,
+              25
+            ],
+            "Y": [
+              29
+            ]
+          }
+        },
+        "lut_d2": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "1011"
+          },
+          "connections": {
+            "A": [
+              25,
+              21
+            ],
+            "Y": [
+              30
+            ]
+          }
+        },
+        "lut_m": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "0010"
+          },
+          "connections": {
+            "A": [
+              21,
+              14
+            ],
+            "Y": [
+              31
+            ]
+          }
+        },
+        "lut_c6": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "01001110"
+          },
+          "connections": {
+            "A": [
+              24,
+              9,
+              31
+            ],
+            "Y": [
+              32
+            ]
+          }
+        },
+        "lut_e3": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "0111"
+          },
+          "connections": {
+            "A": [
+              29,
+              22
+            ],
+            "Y": [
+              33
+            ]
+          }
+        },
+        "lut_d3": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "01111100"
+          },
+          "connections": {
+            "A": [
+              30,
+              23,
+              28
+            ],
+            "Y": [
+              34
+            ]
+          }
+        },
+        "lut_r": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "0000001011001110"
+          },
+          "connections": {
+            "A": [
+              10,
+              11,
+              12,
+              13
+            ],
+            "Y": [
+              35
+            ]
+          }
+        },
+        "lut_f0": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "10"
+          },
+          "connections": {
+            "A": [
+              14
+            ],
+            "Y": [
+              36
+            ]
+          }
+        },
+        "lut_f1": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "01"
+          },
+          "connections": {
+            "A": [
+              14
+            ],
+            "Y": [
+              37
+            ]
+          }
+        },
+        "lut_f2": {
+          "type": "$lut",
+          "parameters": {
+            "LUT": "10"
+          },
+          "connections": {
+            "A": [
+              14
+            ],
+            "Y": [
+              38
+            ]
+          }
+        }
+      }
+    }
+  }
+}
