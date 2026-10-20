@@ -137,12 +137,12 @@ class LUTGraphBuilder:
                         if G.has_node(bit):
                             weight = self._get_boolean_sensitivity(lut_str, input_idx, num_inputs)
                             # Record pin_idx to guarantee correct LUT input ordering
-                            G.add_edge(bit, node, weight=weight, pin_idx=input_idx)
+                            G.add_edge(bit, node, boolean_sensitivity=weight, pin_idx=input_idx)
 
                 elif port_key == "Y":
                     for bit in bits:
                         if bit in output_bit_map:
-                            G.add_edge(node, output_bit_map[bit], weight=1.0)
+                            G.add_edge(node, output_bit_map[bit], boolean_sensitivity=1.0)
 
     def _get_boolean_bias(self, lut_string: str) -> float:
         if not lut_string or not isinstance(lut_string, str):

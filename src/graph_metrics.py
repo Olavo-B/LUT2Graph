@@ -150,8 +150,12 @@ def compute_critical_path(G: nx.DiGraph) -> dict[str, Any]:
         return {"critical_path_length": float("nan"), "critical_path": []}
 
     try:
-        longest_path = nx.dag_longest_path(G, weight="weight")
-        longest_length = nx.dag_longest_path_length(G, weight="weight")
+        # 2026-10-20 12:32:42 - Olavo: Change to not use the weight attribute 
+        # for critical path calculation, as it is not valid for retime circuits.
+        
+        
+        longest_path = nx.dag_longest_path(G)
+        longest_length = nx.dag_longest_path_length(G)
     except Exception as e:
         warnings.warn(f"Error computing critical path: {e}")
         return {"critical_path_length": float("nan"), "critical_path": []}
